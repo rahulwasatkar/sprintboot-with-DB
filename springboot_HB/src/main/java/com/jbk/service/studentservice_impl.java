@@ -27,27 +27,27 @@ public class studentservice_impl implements studentservice {
 
 	@Override
 	public Student getstudent(String studentid) {
-	Student student = dao.getstudent(studentid);
+		Student student = dao.getstudent(studentid);
 
 		return student;
 	}
 
 	@Override
 	public List<Student> getallstudent() {
-
-		return null;
+		List<Student> student = dao.getallstudent();
+		return student;
 	}
 
 	@Override
 	public boolean deletestudentbyid(String studentid) {
-
-		return false;
+boolean b = dao.deletestudentbyid(studentid);
+		return b;
 	}
 
 	@Override
 	public Student updatestudent(Student student) {
-		// TODO Auto-generated method stub
-		return null;
+		Student std = dao.updatestudent(student);
+		return std;
 	}
 
 }
