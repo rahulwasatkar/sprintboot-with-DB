@@ -11,13 +11,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpStatusCodeException;
 
 import com.jbk.entity.Student;
+import com.jbk.model.Branch;
+import com.jbk.model.Student_Branch;
 import com.jbk.service.studentservice;
 
 @RestController
+@RequestMapping("/student")
 public class studentcontroller {
 	@Autowired
 	private studentservice service;
@@ -70,7 +74,7 @@ public class studentcontroller {
 }	
 		
 		
-	
+	 
 
 	@PutMapping(value = "/updatestuent")
 	public ResponseEntity<Student> updatestudent(@RequestBody Student student) {
@@ -83,5 +87,44 @@ public class studentcontroller {
 		}
 
 	}
+	@GetMapping(value = "/getbranchbyid/{branchid}")
+	public ResponseEntity<Branch> getbranch(@PathVariable String branchid){
+		
+		Branch branch = service.getbranchbyid(branchid);
+		
+		if (branch != null) {
+			return new ResponseEntity<>(branch, HttpStatus.OK);
+
+		} else {
+			return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+		}
+
+	}
+
+	@GetMapping(value = "/getstudentwithbranch/{studentid}")
+	public ResponseEntity<Student_Branch> getstudentwithbranch (@PathVariable String studentid){
+		
+		Student_Branch student_Branch = service.getstudentwithbranch(studentid);
+		
+		
+		if (student_Branch != null) {
+			return new ResponseEntity<>(student_Branch, HttpStatus.OK);
+
+		} else {
+			return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+		}
+
+	}
+	@GetMapping(value = "/getallstudentwithbranch")
+	public ResponseEntity<List<Student_Branch>> getallstudentwithbranch() {
+		List<Student_Branch> list = service.getallstudentwithbranch();
+		if (list.isEmpty()) {
+			return new ResponseEntity<>( HttpStatus.NO_CONTENT);
+		} else {
+			return new ResponseEntity<>(list,HttpStatus.OK);
+
+		}
+		
+		}
 
 }
